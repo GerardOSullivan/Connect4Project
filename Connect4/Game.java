@@ -1,14 +1,4 @@
 package Connect4;
-/* This is my attempt at making the game connect 4
-I intend to make a 6x7 grid with a scoreboard to keep track of the amount of games won
-The program begins with a method which randomly generators which player will go first
-a second method will determine who goes second a third method will display the results of who goes first
-
-Day2:I am considering changing my counter class as I am beginning to thing that i will need to create multiple instances of that class so I might need
-to separate the player class and the counter and assign a counter to a player. I am going to start the grid to give me a chance to think about it.
-After messing with the grid i am not too happy with it. I need to come up with a sketch and a layout and a simple plan on how it will work
-(to be continued.....)
- */
 
 import javax.swing.*;
 
@@ -28,9 +18,6 @@ public class Game {
         System.out.println(red.toString() +"\n");
         System.out.println(yellow.toString());
         displayWhoGoesFirst(red);
-
-
-
 
     }
 

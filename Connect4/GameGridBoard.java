@@ -5,63 +5,38 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class GameGridBoard extends JFrame implements MouseListener {
-    private JLabel jLabels[];
-    private int clickEventCounter;
-    private int result=-1;
-    private boolean gameOver=false;
-    private Color defaultColour = getBackground();
+public class GameGridBoard extends JFrame {
 
+    private JLabel backgroundImage;
+    private JFrame gameBoard;
     public GameGridBoard()
     {
-       /* JFrame gameBoard = new JFrame();
-        gameBoard.setSize(750,650);
+        //creating the frame and setting the title
+        gameBoard = new JFrame("Connect Four");
+        //setting the size
+        gameBoard.setSize(700,330);
+        //setting what happens when the window closes
         gameBoard.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        gameBoard.setPreferredSize(gameBoard.getSize());*/
 
+        //I wanted a nice background image just for fun :D had to look up code to put it in. The code came from this video https://www.youtube.com/watch?v=fqYFiLW71zc&ab_channel=samuelowino 16/11/20
+        //The image was taken from here https://www.google.com/search?q=background+image+imagesize:700x500&tbm=isch&hl=en-GB&chips=q:background,g_1:design:NRzzYO0YbIk%3D,g_1:blue:qcdZTVkBW2s%3D&sa=X&ved=2ahUKEwjAjteemYftAhXcQRUIHaErDfkQ4lYoB3oECAEQJQ&biw=1903&bih=880#imgrc=4MgWAWd-fMLsdM&imgdii=5pwVLvsYGlQT_M
+        //The image was resized to fit the frame and both the code and the image were used on the 16/11/20
+        //The code instantiates a JLabel object which requires an ImageIcon argument which retrieves the image file in the package
+        //the boundaries are then set and the JLabel is added to the frame. The video did not have the get width and height accessors. I put them in incase I had to change the image.
 
-        //Create a Grid object with the first value = to the amount of rows the second value is columns
-        //the 3rd value is the horizontal gap and the 4th value is the vertical gap in the object
-        GridLayout gridlayout= new GridLayout(7,7,0,0);
-        FlowLayout flowLayout= new FlowLayout();
-        setLayout(gridlayout);
+        //adding the shapes for the grid to the board
+        gameBoard.add(new DrawShapes(gameBoard.getSize()));
 
-        jLabels = new JLabel[49];
+        backgroundImage = new JLabel(new ImageIcon(getClass().getResource("Connect4Background.jpg")));
+        backgroundImage.setBounds(0,0,gameBoard.getWidth(),gameBoard.getHeight());
+        gameBoard.add(backgroundImage);
 
-        for(int i=0;i<jLabels.length;i++)
-        {
-            jLabels[i] = new JLabel("" +(i+1),SwingConstants.CENTER);
-            jLabels[i].setBorder(BorderFactory.createLineBorder(Color.BLUE, 7));
-            add(jLabels[i]);
-            jLabels[i].addMouseListener(this);
-        }
-
-        setSize(650,650);
-        setVisible(true);
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
+        //puts the window into the middle of the screen
+        gameBoard.setLocationRelativeTo(null);
+        //stops from changing frame window
+        gameBoard.setResizable(false);
+        //turns on the window
+        gameBoard.setVisible(true);
 
     }
 }
