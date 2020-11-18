@@ -1,22 +1,31 @@
 package Connect4;
 
+import javafx.scene.shape.Circle;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class DrawShapes extends JPanel{
+import static Connect4.Game.getRed;
+import static Connect4.Game.getYellow;
+
+public class DrawShapes extends JPanel implements MouseListener{
+    public int gameTurn=2;
+    private int circleWidth=50;
+    private int gap=8;
     public int columns=7;
     public int rows=6;
 
     //I learned of 2D Grid arrays from https://stackoverflow.com/questions/26327579/java-2d-array-grid to handle the rows and columns(This example was minesweeper but the concept is the same for how I will Implement it)16/11/20
-    Color[][] grid = new Color[rows][columns];
+    public Color[][] grid = new Color[rows][columns];
 
     //I got the dimension class from https://docs.oracle.com/javase/7/docs/api/java/awt/Dimension.html to get the height and width of the frame. 16/11/20
     public DrawShapes(Dimension frameSize)
     {
         //sets the canvas to the same size as the Jframe
         setSize(frameSize);
+        addMouseListener(this);
 
         //instantiates a grid
         for(int row=0; row < grid.length;row++)
@@ -31,14 +40,13 @@ public class DrawShapes extends JPanel{
 
     @Override
     public void paintComponent(Graphics g) {
-        Graphics2D g2 = (Graphics2D)g;
+        Graphics2D g2 = (Graphics2D) g;
         Dimension getSize=getSize();
         g2.setColor(new Color(38, 65, 141));
-        g2.fillRect(0,0,350,getSize.height);
-        int circleWidth=40;
-        int gap=8;
+        g2.fillRect(0,0,420,getSize.height);
         int startXAxis=8;
         int startYAxis=8;
+
 
         for(int row=0; row < grid.length;row++)
         {
@@ -60,8 +68,67 @@ public class DrawShapes extends JPanel{
         }
         //setting type and size and colour for all font to be drawn on
         g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-        g2.setColor(new Color(255, 255, 255, 255));
-        //test
-        //g2.drawString("Red's Turn",370,40);
+
+
+        if(getRed().getPlayerTurn()%2==0 && gameTurn>0)
+        {
+            g2.setColor(new Color(200, 255, 0));
+            g2.drawString("Yellows Turn",120,385);
+        }
+        else
+        {
+            if(getYellow().getPlayerTurn()%2==0 && gameTurn>0)
+            {
+                g2.setColor(new Color(255, 93, 93, 255));
+                g2.drawString("Reds Turn",130,385);
+            }
+        }
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        int xAxis = e.getX();
+        int yAxis = e.getY();
+        int xPosition = xAxis/(circleWidth + gap);
+        int yPosition = yAxis/(circleWidth + gap);
+
+        //tool for debugging this is how when clicking on a space it decides to change colours :)
+        //System.out.println("The xAxis :" + xAxis + " divided my the circle width " + circleWidth + " plus the gap " +8 +" is equal to " + xAxis +"/58 =" +xAxis/(circleWidth + gap));
+
+        if(getRed().getPlayerTurn()%2==0)
+        {
+            grid[yPosition][xPosition] = new Color(200, 255, 0);
+        }
+        else
+        {
+            grid[yPosition][xPosition] = new Color(255, 0, 0);
+        }
+
+        gameTurn++;
+        getRed().setPlayerTurn(getRed().getPlayerTurn()+1);
+        getYellow().setPlayerTurn(getYellow().getPlayerTurn()+1);
+        repaint();
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

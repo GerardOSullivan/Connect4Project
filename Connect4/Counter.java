@@ -15,7 +15,6 @@ public class Counter {
         setPlayerTurn(playerTurn);
         setPlayerNumber(numberSequence);
         numberSequence++;
-
     }
 
     public String getColour() {
@@ -46,6 +45,6 @@ public class Counter {
     public String toString() {
         return "Player Number: " + getPlayerNumber() +
                 "\nColour: " + getColour() +
-                "\nPlayer starting Turn: " + getPlayerTurn();
+                "\nPlayer Turn: " + getPlayerTurn();
     }
 }

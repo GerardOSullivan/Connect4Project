@@ -1,19 +1,20 @@
 package Connect4;
 
 import javax.swing.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class Game {
+public class Game{
+    public static int playerTurn =playerPositionGenerator();
+    public static Counter red =new Counter("Red",playerTurn);
+    public static Counter yellow = new Counter("yellow",secondPlayerTurn(playerTurn));
+
     public static void main(String[] args) {
-        int gameTurn=0;
 
         //This is simple code to see who goes first Red or yellow and this assigns the player number to
         //the colour of the counter that is going first the counters are also generated at this point
         //This can be used to see who went first. By default red is player one and yellow is player two
-        GameGridBoard board = new GameGridBoard();
-
-        int playerTurn =playerPositionGenerator();
-        Counter red =new Counter("Red",playerTurn);
-        Counter yellow = new Counter("yellow",secondPlayerTurn(playerTurn));
+        Frame board = new Frame();
 
         System.out.println(red.toString() +"\n");
         System.out.println(yellow.toString());
@@ -48,4 +49,11 @@ public class Game {
         }
     }
 
+    public static Counter getRed() {
+        return red;
+    }
+
+    public static Counter getYellow() {
+        return yellow;
+    }
 }
