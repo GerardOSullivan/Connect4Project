@@ -1,14 +1,12 @@
 package Connect4;
 
-import javafx.scene.shape.Circle;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import static Connect4.Game.getRed;
-import static Connect4.Game.getYellow;
+import static Connect4.Game.*;
+import static Connect4.Methods.freeSpaceChecker;
 
 public class DrawShapes extends JPanel implements MouseListener{
     public int gameTurn=2;
@@ -30,7 +28,8 @@ public class DrawShapes extends JPanel implements MouseListener{
         //instantiates a grid
         for(int row=0; row < grid.length;row++)
         {
-            for(int column=0; column< grid[0].length; column++)
+            //If i say grid.length instead of grid.length + 1 then the grid will have 6 columns instead of 7
+            for(int column=0; column< grid.length+1; column++)
             {
                 grid[row][column] = new Color(255, 255, 255);
             }
@@ -47,10 +46,10 @@ public class DrawShapes extends JPanel implements MouseListener{
         int startXAxis=8;
         int startYAxis=8;
 
-
+        //paints and sorts Grid
         for(int row=0; row < grid.length;row++)
         {
-            for(int column=0; column< grid[0].length; column++)
+            for(int column=0; column< grid.length+1; column++)
             {
                 //paints all the ovals(circles) on top of each other with the colour determined when the grid was instantiated
                 g2.setColor(grid[row][column]);
@@ -79,6 +78,7 @@ public class DrawShapes extends JPanel implements MouseListener{
         {
             if(getYellow().getPlayerTurn()%2==0 && gameTurn>0)
             {
+                //I made this red slightly lighter in colour just for aesthetics
                 g2.setColor(new Color(255, 93, 93, 255));
                 g2.drawString("Reds Turn",130,385);
             }
@@ -96,23 +96,27 @@ public class DrawShapes extends JPanel implements MouseListener{
         int xAxis = e.getX();
         int yAxis = e.getY();
         int xPosition = xAxis/(circleWidth + gap);
-        int yPosition = yAxis/(circleWidth + gap);
-
+        int yPosition = freeSpaceChecker(xPosition,rows,grid);//change the Y axis spot according to if there is a colour there or not
         //tool for debugging this is how when clicking on a space it decides to change colours :)
-        //System.out.println("The xAxis :" + xAxis + " divided my the circle width " + circleWidth + " plus the gap " +8 +" is equal to " + xAxis +"/58 =" +xAxis/(circleWidth + gap));
+        //System.out.println("The xAxis :" + xAxis + " divided by the circle width " + circleWidth + " plus the gap " + gap +" is equal to " + xAxis +"/58 =" +xAxis/(circleWidth + gap));
 
-        if(getRed().getPlayerTurn()%2==0)
+       // System.out.println(yPosition);
+        if(yPosition==-1)
         {
-            grid[yPosition][xPosition] = new Color(200, 255, 0);
+            JOptionPane.showMessageDialog(null,"This Column is full !!! \nPlease select another Column","Full Column",JOptionPane.ERROR_MESSAGE);
         }
-        else
-        {
-            grid[yPosition][xPosition] = new Color(255, 0, 0);
-        }
+        else {
 
-        gameTurn++;
-        getRed().setPlayerTurn(getRed().getPlayerTurn()+1);
-        getYellow().setPlayerTurn(getYellow().getPlayerTurn()+1);
+            if (getRed().getPlayerTurn() % 2 == 0) {
+                grid[yPosition][xPosition] = new Color(200, 255, 0);
+            } else {
+                grid[yPosition][xPosition] = new Color(255, 0, 0);
+            }
+
+            gameTurn++;
+            getRed().setPlayerTurn(getRed().getPlayerTurn() + 1);
+            getYellow().setPlayerTurn(getYellow().getPlayerTurn() + 1);
+        }
         repaint();
 
     }
