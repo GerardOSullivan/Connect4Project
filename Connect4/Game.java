@@ -9,10 +9,8 @@ public class Game{
 
     public static void main(String[] args) {
 
-        Frame board = new Frame();
+       Frame board = new Frame();
 
-        System.out.println(red.toString() +"\n");
-        System.out.println(yellow.toString());
         displayWhoGoesFirst(red);
 
     }
