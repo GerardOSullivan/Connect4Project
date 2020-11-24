@@ -9,6 +9,7 @@ import static Connect4.Game.*;
 import static Connect4.Methods.*;
 
 public class DrawShapes extends JPanel implements MouseListener{
+    public static int gamesPlayed=0;
     public static boolean gameOver=false;
     public static int currentTurn=1;
     private final int circleWidth=50;
@@ -45,6 +46,14 @@ public class DrawShapes extends JPanel implements MouseListener{
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         Dimension getSize=getSize();
+
+        //I ended up having to look up the code for how to draw the background image. I originally added the Background image on the JFrame however this did not work
+        //as when I incremented any piece of text and redrew it the text would paint over itself because of this i needed to repaint the background
+        //every time something changed on the canvas e.g when turn incremented the background would paint over the old value and only the latest information would be displayed
+        //The coded i used for for painting the image came from https://examples.javacodegeeks.com/desktop-java/awt/drawing-an-image-example/ on 23/11/20
+        Image setBackgroundImage=Toolkit.getDefaultToolkit().getImage("C:\\Users\\Gerard\\IdeaProjects\\Connect4Project\\Connect4\\Connect4Background.jpg");
+        g2.drawImage(setBackgroundImage, 0, 0, this);
+
         g2.setColor(new Color(38, 65, 141));
         g2.fillRect(0,0,420,getSize.height);
         int startXAxis=8;
@@ -72,15 +81,31 @@ public class DrawShapes extends JPanel implements MouseListener{
             //resets y starting position so that the rows can display vertically
             startYAxis+=circleWidth +gap;
         }
+
+
+                          //ScoreBoard
+        //setting a simple title in the scorecard :)
+        g.setFont(new Font("Comic Sans MS", Font.PLAIN, 40));
+        g2.setColor(new Color(179, 102, 6));
+        g2.drawString("Connect Four", 440, 50);
+        //this is just an underline no specifics i just kinda messed around with the values :D
+        g2.drawLine(440,52,680,52);
+
         //setting type and size and colour for all font to be drawn on
         g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
 
+        g2.setColor(new Color(255, 255, 255));
+        g2.drawString("Current turn: " + currentTurn, 440, 100);
+        g2.drawString("Red wins : " + getRed().getGamesWon(), 440, 150);
+        g2.drawString("Yellow wins : " + getYellow().getGamesWon(), 440, 200);
+        g2.drawString("Games Played : " + gamesPlayed, 440, 250);
+
         if(!gameOver) {
-            if (getRed().getPlayerTurn() % 2 == 0 && currentTurn > 0) {
+            if (getRed().getPlayerTurn() % 2 == 0 && currentTurn > 1) {
                 g2.setColor(new Color(200, 255, 0));
                 g2.drawString("Yellows Turn", 120, 385);
             } else {
-                if (getYellow().getPlayerTurn() % 2 == 0 && currentTurn > 0) {
+                if (getYellow().getPlayerTurn() % 2 == 0 && currentTurn > 1) {
                     //I made this red slightly lighter in colour just for aesthetics
                     g2.setColor(new Color(255, 93, 93));
                     g2.drawString("Reds Turn", 130, 385);
@@ -136,11 +161,13 @@ public class DrawShapes extends JPanel implements MouseListener{
                     {
                         gameOver=true;
                         displayWinner();
+                        repaint();
                     }
 
                     currentTurn++;
                     getRed().setPlayerTurn(getRed().getPlayerTurn() + 1);
                     getYellow().setPlayerTurn(getYellow().getPlayerTurn() + 1);
+
                 }
             }
         }

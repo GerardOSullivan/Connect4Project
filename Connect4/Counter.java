@@ -1,13 +1,11 @@
 package Connect4;
 
-import javax.swing.*;
-import java.awt.*;
-
 public class Counter {
     private String colour;
     private int playerTurn;
     private int playerNumber;
-    private static int numberSequence=1;
+    private int numberSequence=1;
+    private int gamesWon=0;
 
     public Counter(String colour,int playerTurn)
     {
@@ -29,6 +27,8 @@ public class Counter {
         return playerTurn;
     }
 
+    public int getGamesWon() { return gamesWon; }
+
     public void setColour(String colour) {
         this.colour = colour;
     }
@@ -41,10 +41,13 @@ public class Counter {
         this.playerTurn = playerTurn;
     }
 
+    public void setGamesWon(int gamesWon) { this.gamesWon = gamesWon; }
+
     @Override
     public String toString() {
         return "Player Number: " + getPlayerNumber() +
                 "\nColour: " + getColour() +
-                "\nPlayer Turn: " + getPlayerTurn();
+                "\nPlayer Turn: " + getPlayerTurn() +
+                "\nGames won: " + getGamesWon();
     }
 }
