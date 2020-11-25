@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import static Connect4.Game.*;
-import static Connect4.DrawShapes.*;
+import static Connect4.GameBoard.*;
 
 public class Methods {
     public static int playerTurnGenerator()
@@ -36,17 +36,17 @@ public class Methods {
 
     public static void displayWinner()
     {
+        gamesPlayed++;
+
         if(red.getPlayerTurn()%2==0)
         {
                 JOptionPane.showMessageDialog(null,"Yellow wins","Winner",JOptionPane.INFORMATION_MESSAGE);
                 yellow.setGamesWon(getYellow().getGamesWon()+1);
-                gamesPlayed++;
         }
         else
         {
                 JOptionPane.showMessageDialog(null,"Red wins","Winner",JOptionPane.INFORMATION_MESSAGE);
                 red.setGamesWon(getRed().getGamesWon()+1);
-                gamesPlayed++;
         }
     }
 
@@ -186,12 +186,6 @@ public class Methods {
             nextCounterNorth--;
         }
 
-        System.out.println("\nRow " +currentRow);
-        System.out.println("Column " +currentColumn);
-        System.out.println("Next column " +nextCounterEast);
-        System.out.println("Next row " +nextCounterNorth);
-        System.out.println("Count " +count);
-
         //check North West of the current position
         count=1;
         nextCounterWest=currentColumn-1;
@@ -216,7 +210,7 @@ public class Methods {
             nextCounterNorth--;
         }
 
-        //check North West of the current position
+        //check South West of the current position
         count=1;
         nextCounterWest=currentColumn-1;
         nextCounterSouth=currentRow+1;
@@ -237,6 +231,30 @@ public class Methods {
             }
 
             nextCounterWest--;
+            nextCounterSouth++;
+        }
+
+        //check South East of the current position
+        count=1;
+        nextCounterEast=currentColumn+1;
+        nextCounterSouth=currentRow+1;
+        while(nextCounterEast< gridColour.length+1 && nextCounterSouth<gridColour.length)
+        {
+            if(gridColour[nextCounterSouth][nextCounterEast].equals(playerColour))
+            {
+                count++;
+            }
+            else
+            {
+                break;
+            }
+
+            if(count==4)
+            {
+                return true;
+            }
+
+            nextCounterEast++;
             nextCounterSouth++;
         }
 

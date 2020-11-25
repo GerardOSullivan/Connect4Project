@@ -5,10 +5,11 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import static Connect4.Frame.newGame;
 import static Connect4.Game.*;
 import static Connect4.Methods.*;
 
-public class DrawShapes extends JPanel implements MouseListener{
+public class GameBoard extends JPanel implements MouseListener{
     public static int gamesPlayed=0;
     public static boolean gameOver=false;
     public static int currentTurn=1;
@@ -22,9 +23,9 @@ public class DrawShapes extends JPanel implements MouseListener{
     public Color[][] grid = new Color[rows][columns];
 
     //I got the dimension class from https://docs.oracle.com/javase/7/docs/api/java/awt/Dimension.html to get the height and width of the frame. 16/11/20
-    public DrawShapes(Dimension frameSize)
+    public GameBoard(Dimension frameSize)
     {
-        //sets the canvas to the same size as the Jframe
+        //sets the canvas to the same size as the JFrame
         setSize(frameSize);
         addMouseListener(this);
 
@@ -51,15 +52,17 @@ public class DrawShapes extends JPanel implements MouseListener{
         //as when I incremented any piece of text and redrew it the text would paint over itself because of this i needed to repaint the background
         //every time something changed on the canvas e.g when turn incremented the background would paint over the old value and only the latest information would be displayed
         //The coded i used for for painting the image came from https://examples.javacodegeeks.com/desktop-java/awt/drawing-an-image-example/ on 23/11/20
-        Image setBackgroundImage=Toolkit.getDefaultToolkit().getImage("C:\\Users\\Gerard\\IdeaProjects\\Connect4Project\\Connect4\\Connect4Background.jpg");
-        g2.drawImage(setBackgroundImage, 0, 0, this);
+        //also used a method which gets the file locally rather than using the image url which would not work on another computer
+        //I got this method from https://stackoverflow.com/questions/17902161/how-to-reference-a-local-image-in-java on 24/11/20
+        //This was for an image icon but it worked for what i needed it for as well
+        Image backgroundImage =Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Connect4Background.jpg"));
+        g2.drawImage(backgroundImage, 0, 0, this);
 
         g2.setColor(new Color(38, 65, 141));
         g2.fillRect(0,0,420,getSize.height);
         int startXAxis=8;
         int startYAxis=8;
 
-        int number=0;
         //paints and sorts Grid
         for(int row=0; row < grid.length;row++)
         {
@@ -161,9 +164,9 @@ public class DrawShapes extends JPanel implements MouseListener{
                     {
                         gameOver=true;
                         displayWinner();
-                        repaint();
                     }
 
+                    repaint();
                     currentTurn++;
                     getRed().setPlayerTurn(getRed().getPlayerTurn() + 1);
                     getYellow().setPlayerTurn(getYellow().getPlayerTurn() + 1);
