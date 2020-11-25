@@ -11,7 +11,6 @@ public class Game{
 
        Frame board = new Frame();
 
-        displayWhoGoesFirst(red);
 
     }
 

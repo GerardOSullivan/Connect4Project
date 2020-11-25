@@ -5,14 +5,15 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import static Connect4.Frame.newGame;
 import static Connect4.Game.*;
 import static Connect4.Methods.*;
 
 public class GameBoard extends JPanel implements MouseListener{
+    private Image newGameButton =Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("NEW_GAME.png"));
     public static int gamesPlayed=0;
     public static boolean gameOver=false;
-    public static int currentTurn=1;
+    private static boolean clicked=false;
+    public static int currentTurn=0;
     private final int circleWidth=50;
     private final int gap=8;
     public int columns=7;
@@ -52,6 +53,7 @@ public class GameBoard extends JPanel implements MouseListener{
         //as when I incremented any piece of text and redrew it the text would paint over itself because of this i needed to repaint the background
         //every time something changed on the canvas e.g when turn incremented the background would paint over the old value and only the latest information would be displayed
         //The coded i used for for painting the image came from https://examples.javacodegeeks.com/desktop-java/awt/drawing-an-image-example/ on 23/11/20
+        //The image came from https://www.google.com/search?q=background+image+imagesize:700x500&tbm=isch&hl=en-GB&chips=q:background,g_1:design:NRzzYO0YbIk%3D,g_1:blue:qcdZTVkBW2s%3D&sa=X&ved=2ahUKEwjAjteemYftAhXcQRUIHaErDfkQ4lYoB3oECAEQJQ&biw=1903&bih=880#imgrc=4MgWAWd-fMLsdM&imgdii=5pwVLvsYGlQT_M 16/11/20
         //also used a method which gets the file locally rather than using the image url which would not work on another computer
         //I got this method from https://stackoverflow.com/questions/17902161/how-to-reference-a-local-image-in-java on 24/11/20
         //This was for an image icon but it worked for what i needed it for as well
@@ -103,24 +105,41 @@ public class GameBoard extends JPanel implements MouseListener{
         g2.drawString("Yellow wins : " + getYellow().getGamesWon(), 440, 200);
         g2.drawString("Games Played : " + gamesPlayed, 440, 250);
 
-        if(!gameOver) {
-            if (getRed().getPlayerTurn() % 2 == 0 && currentTurn > 1) {
-                g2.setColor(new Color(200, 255, 0));
-                g2.drawString("Yellows Turn", 120, 385);
-            } else {
-                if (getYellow().getPlayerTurn() % 2 == 0 && currentTurn > 1) {
-                    //I made this red slightly lighter in colour just for aesthetics
-                    g2.setColor(new Color(255, 93, 93));
-                    g2.drawString("Reds Turn", 130, 385);
+
+        //new game button
+        if(!clicked)
+        {
+            newGameButton =Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("NEW_GAME.png"));
+            g2.drawImage(newGameButton, 440, 300, 280,60, this);
+        }
+        else
+        {
+            newGameButton =Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("NEW_GAME_CLICKED.png"));
+            g2.drawImage(newGameButton, 440, 300, 280,60, this);
+        }
+
+        if(currentTurn!=0) {
+            if (!gameOver) {
+                if (getRed().getPlayerTurn() % 2 == 0) {
+                    g2.setColor(new Color(200, 255, 0));
+                    g2.drawString("Yellows Turn", 120, 385);
+                } else {
+                    if (getYellow().getPlayerTurn() % 2 == 0) {
+                        //I made this red slightly lighter in colour just for aesthetics
+                        g2.setColor(new Color(255, 93, 93));
+                        g2.drawString("Reds Turn", 130, 385);
+                    }
                 }
+            } else {
+                g2.setColor(new Color(255, 255, 255));
+                g2.drawString("Game Over", 140, 385);
             }
         }
         else
         {
             g2.setColor(new Color(255, 255, 255));
-            g2.drawString("Game Over", 140, 385);
+            g2.drawString("Click New Game to begin!", 40, 385);
         }
-
     }
 
     @Override
@@ -133,11 +152,39 @@ public class GameBoard extends JPanel implements MouseListener{
         int xAxis = e.getX();
         int yAxis = e.getY();
         int xPosition = xAxis/(circleWidth + gap);
+
         //tool for debugging this is when clicking on a space it decides to change colours :)
         //System.out.println("The xAxis :" + xAxis + " divided by the circle width " + circleWidth + " plus the gap " + gap +" is equal to " + xAxis +"/58 =" +xAxis/(circleWidth + gap));
 
+        //code for new button click
+        if(xAxis>=440 && xAxis<=690 && yAxis>=300 && yAxis<=350)
+        {
+            clicked=true;
+            repaint();
+            int userInput=JOptionPane.showConfirmDialog(null,"Would you like to start a new game","New Game",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE);
+            if(userInput==0)
+            {
+                for(int row=0; row < grid.length;row++)
+                {
+                    //If i say grid.length instead of grid.length + 1 then the grid will have 6 columns instead of 7
+                    for(int column=0; column< grid.length+1; column++)
+                    {
+
+                        grid[row][column] = new Color(255, 255, 255);
+
+                    }
+                }
+                displayWhoGoesFirst(red);
+                gameOver=false;
+                currentTurn=1;
+            }
+
+            clicked=false;
+            repaint();
+        }
+
         //This checks to see if the game has been won
-        if(!gameOver) {
+        if(!gameOver && currentTurn>0) {
 
             //This IF statement checks to see if the clicks are within the grid array if not it will do nothing
             if (yAxis < ((circleWidth + gap) * grid.length) && xAxis < ((circleWidth + gap) * (grid.length + 1))) {
@@ -178,7 +225,8 @@ public class GameBoard extends JPanel implements MouseListener{
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        clicked=false;
+        repaint();
     }
 
     @Override
