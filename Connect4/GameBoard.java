@@ -9,7 +9,7 @@ import static Connect4.Game.*;
 import static Connect4.Methods.*;
 
 public class GameBoard extends JPanel implements MouseListener{
-    private Image newGameButton =Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("NEW_GAME.png"));
+    public static int playerTurn =playerTurnGenerator();
     public static int gamesPlayed=0;
     public static boolean gameOver=false;
     private static boolean clicked=false;
@@ -57,7 +57,7 @@ public class GameBoard extends JPanel implements MouseListener{
         //also used a method which gets the file locally rather than using the image url which would not work on another computer
         //I got this method from https://stackoverflow.com/questions/17902161/how-to-reference-a-local-image-in-java on 24/11/20
         //This was for an image icon but it worked for what i needed it for as well
-        Image backgroundImage =Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Connect4Background.jpg"));
+        Image backgroundImage =Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images\\Connect4Background.jpg"));
         g2.drawImage(backgroundImage, 0, 0, this);
 
         g2.setColor(new Color(38, 65, 141));
@@ -107,16 +107,16 @@ public class GameBoard extends JPanel implements MouseListener{
 
 
         //new game button
+        Image newGameButton = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images\\NEW_GAME.png"));
         if(!clicked)
         {
-            newGameButton =Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("NEW_GAME.png"));
-            g2.drawImage(newGameButton, 440, 300, 280,60, this);
+            newGameButton =Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images\\NEW_GAME.png"));
         }
         else
         {
-            newGameButton =Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("NEW_GAME_CLICKED.png"));
-            g2.drawImage(newGameButton, 440, 300, 280,60, this);
+            newGameButton =Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images\\NEW_GAME_CLICKED.png"));
         }
+        g2.drawImage(newGameButton, 440, 300, 280,60, this);
 
         if(currentTurn!=0) {
             if (!gameOver) {
@@ -164,6 +164,11 @@ public class GameBoard extends JPanel implements MouseListener{
             int userInput=JOptionPane.showConfirmDialog(null,"Would you like to start a new game","New Game",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE);
             if(userInput==0)
             {
+                //see who goes first
+                playerTurn=playerTurnGenerator();
+                red.setPlayerTurn(playerTurn);
+                yellow.setPlayerTurn(secondPlayerTurn(playerTurn));
+
                 for(int row=0; row < grid.length;row++)
                 {
                     //If i say grid.length instead of grid.length + 1 then the grid will have 6 columns instead of 7
@@ -202,6 +207,10 @@ public class GameBoard extends JPanel implements MouseListener{
                     } else {
                         grid[yPosition][xPosition] = new Color(255, 0, 0);
                     }
+
+                    //im going to put the audio for the coin drops in here :)
+                    Audio backgroundMusic=new Audio();
+                    backgroundMusic.playAudio("C:\\Users\\Gerard\\IdeaProjects\\Connect4Project\\Connect4\\Sounds\\CoinDrop.wav");
 
                     repaint();
 

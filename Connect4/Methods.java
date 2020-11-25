@@ -31,13 +31,17 @@ public class Methods {
             return 2;
         }
         else
+        {
             return 1;
+        }
     }
 
     public static void displayWinner()
     {
         gamesPlayed++;
 
+        Audio backgroundMusic=new Audio();
+        backgroundMusic.playAudio("C:\\Users\\Gerard\\IdeaProjects\\Connect4Project\\Connect4\\Sounds\\Applause.wav");
         if(red.getPlayerTurn()%2==0)
         {
                 JOptionPane.showMessageDialog(null,"Yellow wins","Winner",JOptionPane.INFORMATION_MESSAGE);

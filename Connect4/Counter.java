@@ -7,7 +7,7 @@ public class Counter {
     private int numberSequence=1;
     private int gamesWon=0;
 
-    public Counter(String colour,int playerTurn)
+    public Counter(String colour)
     {
         setColour(colour);
         setPlayerTurn(playerTurn);
