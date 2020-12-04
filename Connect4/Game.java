@@ -1,14 +1,27 @@
 package Connect4;
 
-public class Game{
+import java.io.*;
+import java.util.Scanner;
+
+import static Connect4.GameBoard.gamesPlayed;
+
+public class Game {
     public static Counter red =new Counter("Red");
     public static Counter yellow = new Counter("yellow");
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-       Frame board = new Frame();
-       Audio backgroundMusic=new Audio();
-       backgroundMusic.playAudio("C:\\Users\\Gerard\\IdeaProjects\\Connect4Project\\Connect4\\Sounds\\BackgroundMusic.wav");
+        //Load the save data Line one is reds wins Line two is yellows wins and the third line is the amount of games played
+        File counterData = new File("Connect4\\counterData.txt");
+        Scanner fileScanner = new Scanner(counterData);
+        red.setGamesWon(Integer.parseInt(fileScanner.nextLine()));
+        yellow.setGamesWon(Integer.parseInt(fileScanner.nextLine()));
+        gamesPlayed=Integer.parseInt(fileScanner.nextLine());
+
+
+        new Frame();
+        Audio.playAudio("Connect4\\Sounds\\BackgroundMusic.wav");
+
     }
 
     public static Counter getRed() {

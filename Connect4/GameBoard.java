@@ -4,9 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import static Connect4.Game.*;
 import static Connect4.Methods.*;
+
+/**
+ * @author Gerard O Sullivan
+ * @version 1.0
+ */
 
 public class GameBoard extends JPanel implements MouseListener{
     public static int playerTurn =playerTurnGenerator();
@@ -20,20 +27,49 @@ public class GameBoard extends JPanel implements MouseListener{
     public int rows=6;
 
 
-    //I learned of 2D Grid arrays from https://stackoverflow.com/questions/26327579/java-2d-array-grid to handle the rows and columns(This example was minesweeper but the concept is the same for how I will Implement it)16/11/20
+    /**I learned of 2D Grid arrays from https://stackoverflow.com/questions/26327579/java-2d-array-grid to handle the rows and columns(This example was minesweeper but the concept is the same for how I will Implement it)16/11/20 */
+
+    /*****************************************************
+     *    Title:  2D Grid Array
+     *    Author: N/A
+     *    Site owner/sponsor:  stackoverflow.com
+     *    Date: 16/11/20
+     *    Code version: N/A
+     *    Availability:  https://stackoverflow.com/questions/26327579/java-2d-array-grid
+     (Accessed 16 November 2020)
+     *    Modified:  Code refactored (Identifiers renamed)
+     *****************************************************/
+
     public Color[][] grid = new Color[rows][columns];
 
-    //I got the dimension class from https://docs.oracle.com/javase/7/docs/api/java/awt/Dimension.html to get the height and width of the frame. 16/11/20
+    /**I got the dimension class from https://docs.oracle.com/javase/7/docs/api/java/awt/Dimension.html to get the height and width of the frame. 16/11/20*/
+
+    /*****************************************************
+     *    Title:  Dimension
+     *    Author: N/A
+     *    Site owner/sponsor:  oracle.com
+     *    Date: 16/11/20
+     *    Code version: N/A
+     *    Availability:  https://docs.oracle.com/javase/7/docs/api/java/awt/Dimension.html
+     (Accessed 16 November 2020)
+     *    Modified:  Code refactored (Identifiers renamed)
+     *****************************************************/
+
+
+    /**
+     * Method that creates a game board for the connect 4 to be played on
+     * @param frameSize is the frame size of the Jframe
+     */
     public GameBoard(Dimension frameSize)
     {
-        //sets the canvas to the same size as the JFrame
+        /**sets the canvas to the same size as the JFrame*/
         setSize(frameSize);
         addMouseListener(this);
 
-        //instantiates a grid
+        /**instantiates a grid*/
         for(int row=0; row < grid.length;row++)
         {
-            //If i say grid.length instead of grid.length + 1 then the grid will have 6 columns instead of 7
+            /**If i say grid.length instead of grid.length + 1 then the grid will have 6 columns instead of 7 */
             for(int column=0; column< grid.length+1; column++)
             {
 
@@ -45,18 +81,47 @@ public class GameBoard extends JPanel implements MouseListener{
     }
 
     @Override
+    /**
+     * Method that paints on to JFrame
+     * @param g a graphics object that allows for painting
+     */
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         Dimension getSize=getSize();
 
-        //I ended up having to look up the code for how to draw the background image. I originally added the Background image on the JFrame however this did not work
-        //as when I incremented any piece of text and redrew it the text would paint over itself because of this i needed to repaint the background
-        //every time something changed on the canvas e.g when turn incremented the background would paint over the old value and only the latest information would be displayed
-        //The coded i used for for painting the image came from https://examples.javacodegeeks.com/desktop-java/awt/drawing-an-image-example/ on 23/11/20
-        //The image came from https://www.google.com/search?q=background+image+imagesize:700x500&tbm=isch&hl=en-GB&chips=q:background,g_1:design:NRzzYO0YbIk%3D,g_1:blue:qcdZTVkBW2s%3D&sa=X&ved=2ahUKEwjAjteemYftAhXcQRUIHaErDfkQ4lYoB3oECAEQJQ&biw=1903&bih=880#imgrc=4MgWAWd-fMLsdM&imgdii=5pwVLvsYGlQT_M 16/11/20
-        //also used a method which gets the file locally rather than using the image url which would not work on another computer
-        //I got this method from https://stackoverflow.com/questions/17902161/how-to-reference-a-local-image-in-java on 24/11/20
-        //This was for an image icon but it worked for what i needed it for as well
+/**
+        I ended up having to look up the code for how to draw the background image. I originally added the Background image on the JFrame however this did not work
+        as when I incremented any piece of text and redrew it the text would paint over itself because of this i needed to repaint the background
+        every time something changed on the canvas e.g when turn incremented the background would paint over the old value and only the latest information would be displayed
+        The code I used for for painting the image came from https://examples.javacodegeeks.com/desktop-java/awt/drawing-an-image-example/ on 23/11/20
+        The image came from https://www.google.com/search?q=background+image+imagesize:700x500&tbm=isch&hl=en-GB&chips=q:background,g_1:design:NRzzYO0YbIk%3D,g_1:blue:qcdZTVkBW2s%3D&sa=X&ved=2ahUKEwjAjteemYftAhXcQRUIHaErDfkQ4lYoB3oECAEQJQ&biw=1903&bih=880#imgrc=4MgWAWd-fMLsdM&imgdii=5pwVLvsYGlQT_M 16/11/20
+        also used a method which gets the file locally rather than using the image url which would not work on another computer
+        I got this method from https://stackoverflow.com/questions/17902161/how-to-reference-a-local-image-in-java on 24/11/20
+        This was for an image icon but it worked for what i needed it for as well
+*/
+
+/*****************************************************
+ *    Title:  Draw an Image paint component
+ *    Author: N/A
+ *    Site owner/sponsor:  javacodegeeks.com
+ *    Date: 23/11/20
+ *    Code version: N/A
+ *    Availability:  https://examples.javacodegeeks.com/desktop-java/awt/drawing-an-image-example/
+ (Accessed 23 November 2020)
+ *    Modified:  Code refactored (Identifiers renamed)
+ *****************************************************/
+
+/*****************************************************
+ *    Title:  Reference local image
+ *    Author: N/A
+ *    Site owner/sponsor:  stackoverflow.com
+ *    Date: 24/11/20
+ *    Code version: N/A
+ *    Availability:  https://stackoverflow.com/questions/17902161/how-to-reference-a-local-image-in-java
+ (Accessed 24 November 2020)
+ *    Modified:  Code refactored (Identifiers renamed)
+ *****************************************************/
+
         Image backgroundImage =Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images\\Connect4Background.jpg"));
         g2.drawImage(backgroundImage, 0, 0, this);
 
@@ -65,49 +130,50 @@ public class GameBoard extends JPanel implements MouseListener{
         int startXAxis=8;
         int startYAxis=8;
 
-        //paints and sorts Grid
-        for(int row=0; row < grid.length;row++)
-        {
-            for(int column=0; column< grid.length+1; column++)
-            {
-                    //paints all the ovals(circles) on top of each other with the colour determined when the grid was instantiated
-                    g2.setColor(grid[row][column]);
-                    //draws the circles starting position as well as length and width of the circles
-                    g2.fillOval(startXAxis,startYAxis,circleWidth,circleWidth);
+        /**paints and sorts Grid*/
+        for (Color[] colors : grid) {
+            for (int column = 0; column < grid.length + 1; column++) {
+                /**paints all the ovals(circles) on top of each other with the colour determined when the grid was instantiated*/
+                g2.setColor(colors[column]);
+                /**draws the circles starting position as well as length and width of the circles*/
+                g2.fillOval(startXAxis, startYAxis, circleWidth, circleWidth);
 
-                    //this takes the circles and draws out each circle individually and as the loop increments the circles starting position will be the current position + the width of a circle + a gap
-                    startXAxis+=circleWidth+gap;
+                /**this takes the circles and draws out each circle individually and as the loop increments the circles starting position will be the current position + the width of a circle + a gap*/
+                startXAxis += circleWidth + gap;
 
             }
 
-            // this resets the starting point of the X-Axis and draws another circle on the same row
-            startXAxis=8;
+            /**this resets the starting point of the X-Axis and draws another circle on the same row*/
+            startXAxis = 8;
 
-            //resets y starting position so that the rows can display vertically
-            startYAxis+=circleWidth +gap;
+            /**resets y starting position so that the rows can display vertically*/
+            startYAxis += circleWidth + gap;
         }
 
 
                           //ScoreBoard
-        //setting a simple title in the scorecard :)
+        /**setting a simple title in the scorecard :)*/
         g.setFont(new Font("Comic Sans MS", Font.PLAIN, 40));
         g2.setColor(new Color(179, 102, 6));
         g2.drawString("Connect Four", 440, 50);
-        //this is just an underline no specifics i just kinda messed around with the values :D
+        /**this is just an underline no specifics i just kinda messed around with the values :D*/
         g2.drawLine(440,52,680,52);
 
-        //setting type and size and colour for all font to be drawn on
+        /**setting type and size and colour for all font to be drawn on*/
         g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
 
         g2.setColor(new Color(255, 255, 255));
-        g2.drawString("Current turn: " + currentTurn, 440, 100);
+        if(currentTurn==0)
+        {
+            g2.drawString("Current turn: " + currentTurn, 440, 100);
+        }
         g2.drawString("Red wins : " + getRed().getGamesWon(), 440, 150);
         g2.drawString("Yellow wins : " + getYellow().getGamesWon(), 440, 200);
         g2.drawString("Games Played : " + gamesPlayed, 440, 250);
 
 
         //new game button
-        Image newGameButton = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images\\NEW_GAME.png"));
+        Image newGameButton;
         if(!clicked)
         {
             newGameButton =Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("Images\\NEW_GAME.png"));
@@ -120,6 +186,7 @@ public class GameBoard extends JPanel implements MouseListener{
 
         if(currentTurn!=0) {
             if (!gameOver) {
+                g2.drawString("Current turn: " + currentTurn, 440, 100);
                 if (getRed().getPlayerTurn() % 2 == 0) {
                     g2.setColor(new Color(200, 255, 0));
                     g2.drawString("Yellows Turn", 120, 385);
@@ -131,6 +198,7 @@ public class GameBoard extends JPanel implements MouseListener{
                     }
                 }
             } else {
+                g2.drawString("Current turn: " + (currentTurn-1), 440, 100);
                 g2.setColor(new Color(255, 255, 255));
                 g2.drawString("Game Over", 140, 385);
             }
@@ -143,6 +211,10 @@ public class GameBoard extends JPanel implements MouseListener{
     }
 
     @Override
+    /**
+     * Method for Mouse events
+     * @param e a MouseEvent object that allows for mouse events
+     */
     public void mouseClicked(MouseEvent e) {
 
     }
@@ -153,8 +225,8 @@ public class GameBoard extends JPanel implements MouseListener{
         int yAxis = e.getY();
         int xPosition = xAxis/(circleWidth + gap);
 
-        //tool for debugging this is when clicking on a space it decides to change colours :)
-        //System.out.println("The xAxis :" + xAxis + " divided by the circle width " + circleWidth + " plus the gap " + gap +" is equal to " + xAxis +"/58 =" +xAxis/(circleWidth + gap));
+        /**tool for debugging this is when clicking on a space it decides to change colours :)
+         * System.out.println("The xAxis :" + xAxis + " divided by the circle width " + circleWidth + " plus the gap " + gap +" is equal to " + xAxis +"/58 =" +xAxis/(circleWidth + gap));*/
 
         //code for new button click
         if(xAxis>=440 && xAxis<=690 && yAxis>=300 && yAxis<=350)
@@ -171,7 +243,7 @@ public class GameBoard extends JPanel implements MouseListener{
 
                 for(int row=0; row < grid.length;row++)
                 {
-                    //If i say grid.length instead of grid.length + 1 then the grid will have 6 columns instead of 7
+                    /**If i say grid.length instead of grid.length + 1 then the grid will have 6 columns instead of 7*/
                     for(int column=0; column< grid.length+1; column++)
                     {
 
@@ -188,16 +260,16 @@ public class GameBoard extends JPanel implements MouseListener{
             repaint();
         }
 
-        //This checks to see if the game has been won
+        /**This checks to see if the game has been won*/
         if(!gameOver && currentTurn>0) {
 
-            //This IF statement checks to see if the clicks are within the grid array if not it will do nothing
+            /**This IF statement checks to see if the clicks are within the grid array if not it will do nothing*/
             if (yAxis < ((circleWidth + gap) * grid.length) && xAxis < ((circleWidth + gap) * (grid.length + 1))) {
 
-                //change the Y axis spot according to if there is a colour there or not
+                /**change the Y axis spot according to if there is a colour there or not*/
                 int yPosition = freeSpaceChecker(xPosition, rows, grid);
 
-                //This statement checks to see if the column is full
+                /**This statement checks to see if the column is full*/
                 if (yPosition == -1) {
                     JOptionPane.showMessageDialog(null, "This Column is full !!! \nPlease select another Column", "Full Column", JOptionPane.ERROR_MESSAGE);
                 } else {
@@ -208,9 +280,8 @@ public class GameBoard extends JPanel implements MouseListener{
                         grid[yPosition][xPosition] = new Color(255, 0, 0);
                     }
 
-                    //im going to put the audio for the coin drops in here :)
-                    Audio backgroundMusic=new Audio();
-                    backgroundMusic.playAudio("C:\\Users\\Gerard\\IdeaProjects\\Connect4Project\\Connect4\\Sounds\\CoinDrop.wav");
+                    /**im going to put the audio for the coin drops in here :)*/
+                    Audio.playAudio("Connect4\\Sounds\\CoinDrop.wav");
 
                     repaint();
 
@@ -218,8 +289,37 @@ public class GameBoard extends JPanel implements MouseListener{
 
                     if(hasThePlayerWon(yPosition,xPosition,playerColour,grid))
                     {
-                        gameOver=true;
                         displayWinner();
+                        gameOver=true;
+
+                        /**saving my data to the text file on 3 separate lines*/
+                        FileWriter saveData = null;
+                        try {
+                            saveData = new FileWriter("Connect4\\counterData.txt");
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        try {
+                            assert saveData != null;
+                            saveData.write(""+red.getGamesWon());
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        try {
+                            saveData.write("\n"+yellow.getGamesWon());
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        try {
+                            saveData.write("\n"+gamesPlayed);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        try {
+                            saveData.close();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
 
                     repaint();

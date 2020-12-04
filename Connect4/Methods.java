@@ -40,8 +40,7 @@ public class Methods {
     {
         gamesPlayed++;
 
-        Audio backgroundMusic=new Audio();
-        backgroundMusic.playAudio("C:\\Users\\Gerard\\IdeaProjects\\Connect4Project\\Connect4\\Sounds\\Applause.wav");
+        Audio.playAudio("Connect4\\Sounds\\Applause.wav");
         if(red.getPlayerTurn()%2==0)
         {
                 JOptionPane.showMessageDialog(null,"Yellow wins","Winner",JOptionPane.INFORMATION_MESSAGE);
@@ -58,7 +57,7 @@ public class Methods {
     {
         int yPosition=0;
 
-            //As long as the Counter as the top row is not equal to either red or yellow do this else return -1 which will indicate that the Column is full
+            //As long as the Counter at the top row is not equal to either red or yellow do this else return -1 which will indicate that the Column is full
             if (!grid[yPosition][xPosition].equals(new Color(200, 255, 0)) || !grid[yPosition][xPosition].equals(new Color(255, 0, 0))) {
                 //I say rows -1 here because rows returns 6 but my position will go from 0 to 5 so i only need to loop until 5
                 for (yPosition = 0; yPosition <= rows - 1; yPosition++) {
