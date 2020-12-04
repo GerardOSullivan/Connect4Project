@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Connect4</OriginalElement>
+  <nodes>
+    <node x="521.0625" y="0.0">Connect4.Sounds</node>
+    <node x="248.54166666666663" y="249.0">Connect4.Game</node>
+    <node x="380.3125" y="67.5">Connect4.Frame</node>
+    <node x="0.0" y="67.5">Connect4.Audio</node>
+    <node x="710.0625" y="0.0">Connect4.Images</node>
+    <node x="201.3125" y="0.0">Connect4.Counter</node>
+    <node x="15.854166666666657" y="442.0">Connect4.Methods</node>
+    <node x="188.67708333333331" y="656.0">Connect4.GameBoard</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Connect4.Methods" target="Connect4.Counter">
+      <point x="0.0" y="-82.0" />
+      <point x="174.35416666666666" y="417.0" />
+      <point x="152.02083333333331" y="417.0" />
+      <point x="152.02083333333331" y="229.0" />
+      <point x="221.1875" y="229.0" />
+      <point x="-59.625" y="94.5" />
+    </edge>
+    <edge source="Connect4.Methods" target="Connect4.Audio">
+      <point x="-105.66666666666669" y="-82.0" />
+      <point x="68.68749999999997" y="417.0" />
+      <point x="84.0" y="417.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="Connect4.GameBoard" target="Connect4.Game">
+      <point x="19.166666666666686" y="-204.0" />
+      <point x="322.84375" y="636.0" />
+      <point x="343.35416666666663" y="636.0" />
+      <point x="343.35416666666663" y="417.0" />
+      <point x="326.04166666666663" y="417.0" />
+      <point x="0.0" y="71.5" />
+    </edge>
+    <edge source="Connect4.Methods" target="Connect4.GameBoard">
+      <point x="79.25" y="82.0" />
+      <point x="253.60416666666666" y="636.0" />
+      <point x="284.5104166666667" y="636.0" />
+      <point x="-19.16666666666663" y="-204.0" />
+    </edge>
+    <edge source="Connect4.Frame" target="Connect4.GameBoard">
+      <point x="23.25" y="27.0" />
+      <point x="450.0625" y="636.0" />
+      <point x="399.51041666666663" y="636.0" />
+      <point x="95.83333333333336" y="-204.0" />
+    </edge>
+    <edge source="Connect4.Game" target="Connect4.Frame">
+      <point x="62.0" y="-71.5" />
+      <point x="388.04166666666663" y="229.0" />
+      <point x="403.5625" y="229.0" />
+      <point x="-23.25" y="27.0" />
+    </edge>
+    <edge source="Connect4.GameBoard" target="Connect4.Methods">
+      <point x="-57.5" y="-204.0" />
+      <point x="246.17708333333331" y="626.0" />
+      <point x="95.10416666666666" y="626.0" />
+      <point x="-79.25" y="82.0" />
+    </edge>
+    <edge source="Connect4.Game" target="Connect4.GameBoard">
+      <point x="51.66666666666663" y="71.5" />
+      <point x="377.70833333333326" y="417.0" />
+      <point x="364.57291666666663" y="417.0" />
+      <point x="364.57291666666663" y="636.0" />
+      <point x="361.1770833333333" y="636.0" />
+      <point x="57.5" y="-204.0" />
+    </edge>
+    <edge source="Connect4.Methods" target="Connect4.Game">
+      <point x="105.66666666666669" y="-82.0" />
+      <point x="280.02083333333337" y="417.0" />
+      <point x="274.375" y="417.0" />
+      <point x="-51.66666666666666" y="71.5" />
+    </edge>
+    <edge source="Connect4.Game" target="Connect4.Counter">
+      <point x="-31.0" y="-71.5" />
+      <point x="295.04166666666663" y="209.0" />
+      <point x="260.9375" y="209.0" />
+      <point x="-19.875" y="94.5" />
+    </edge>
+    <edge source="Connect4.Game" target="Connect4.Audio">
+      <point x="-62.0" y="-71.5" />
+      <point x="264.04166666666663" y="219.0" />
+      <point x="140.0" y="219.0" />
+      <point x="56.0" y="27.0" />
+    </edge>
+    <edge source="Connect4.GameBoard" target="Connect4.Audio">
+      <point x="-95.83333333333334" y="-204.0" />
+      <point x="207.84374999999994" y="636.0" />
+      <point x="5.114583333333343" y="636.0" />
+      <point x="5.114583333333343" y="229.0" />
+      <point x="28.0" y="229.0" />
+      <point x="-56.0" y="27.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="154.5" y="240.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
