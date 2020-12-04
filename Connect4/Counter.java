@@ -43,6 +43,7 @@ public class Counter {
 
     public void setGamesWon(int gamesWon) { this.gamesWon = gamesWon; }
 
+    //never used but wanted to keep it in
     @Override
     public String toString() {
         return "Player Number: " + getPlayerNumber() +

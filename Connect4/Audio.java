@@ -8,27 +8,27 @@ public class Audio {
 
     //John helped me with the audio :) I also got some help from this video https://www.youtube.com/watch?v=TErboGLHZGA&ab_channel=MaxO%27Didily 25/11/20
 
-//    /*****************************************************
-//     *    Title:  Installing audio
-//     *    Author: N/A
-//     *    Site owner/sponsor:  John Brosnan
-//     *    Date: 25/11/20
-//     *    Code version: N/A
-//     *    Availability:  Lecture
-//     (Accessed 25 November 2020)
-//     *    Modified:  Code refactored (Identifiers renamed)
-//     *****************************************************/
+    /*****************************************************
+     *    Title:  Installing audio
+     *    Author: N/A
+     *    Site owner/sponsor:  John Brosnan
+     *    Date: 25/11/20
+     *    Code version: N/A
+     *    Availability:  Lecture
+     (Accessed 25 November 2020)
+     *    Modified:  Code refactored (Identifiers renamed)
+     *****************************************************/
 
-//    /*****************************************************
-//     *    Title:  Installing audio
-//     *    Author: N/A
-//     *    Site owner/sponsor: Max O'Diddly, Youtube
-//     *    Date: 25/11/20
-//     *    Code version: N/A
-//     *    Availability:  https://www.youtube.com/watch?v=TErboGLHZGA&ab_channel=MaxO%27Didily
-//     (Accessed 25 November 2020)
-//     *    Modified:  Code refactored (Identifiers renamed)
-//     *****************************************************/
+    /*****************************************************
+     *    Title:  Installing audio
+     *    Author: N/A
+     *    Site owner/sponsor: Max O'Diddly, Youtube
+     *    Date: 25/11/20
+     *    Code version: N/A
+     *    Availability:  https://www.youtube.com/watch?v=TErboGLHZGA&ab_channel=MaxO%27Didily
+     (Accessed 25 November 2020)
+     *    Modified:  Code refactored (Identifiers renamed)
+     *****************************************************/
 
     public static void playAudio(String path){
         try{
